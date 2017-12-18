@@ -1,6 +1,7 @@
 import * as express from "express";
 import * as logger from "morgan";
 import * as bodyParser from "body-parser";
+import MessageRouter from "./routes/message.route";
 
 let jwt = require('jsonwebtoken');
 
@@ -47,7 +48,7 @@ class App {
         let authMiddleware = express.Router();
 
         authMiddleware.use((req, res, next) => {
-            let token: string = req.headers['authorization'];
+            let token: any = req.headers['authorization'];
             if (token) {
                 jwt.verify(token, 'ITATAKARU', function (err) {
                     if (err) {
@@ -66,7 +67,7 @@ class App {
         });
 
         this.express.use('/', corsMiddleware, router);
-        this.express.use('/api', router);
+        this.express.use('/api/messages', corsMiddleware, MessageRouter);
     }
 
 }
