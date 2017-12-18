@@ -1,5 +1,4 @@
-1. `cd backend`
-1. `npm install -g gulp`
+1. `npm install -g gulp yarn`
 1. `yarn install`
 1. `yarn build`
 1. `yarn start`
