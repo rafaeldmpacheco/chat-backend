@@ -1,9 +1,9 @@
 import {Router} from "express";
 
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/chat');
 
-var Bear = require('../model/message');
+let messagesSchema = require('../model/message');
 
 export class MessageRouter {
 
@@ -16,12 +16,11 @@ export class MessageRouter {
 
     public init() {
         this.router.route('/').get(function (req, res) {
-            Bear.find(function (err, bears) {
+            messagesSchema.find(function (err, messages) {
                 if (err) {
                     res.send(err);
                 }
-                res.json(bears);
-
+                res.json(messages);
             });
         });
     }
