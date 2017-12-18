@@ -1,9 +1,15 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+import * as mongoose from 'mongoose';
 
-var messagesSchema = new Schema({
-    nickname: String,
-    message: String
-});
+let Schema = mongoose.Schema;
 
-module.exports = mongoose.model('messages', messagesSchema);
+export class MessageSchema {
+
+    public static getMessageModel(): any {
+        let messagesSchema = new Schema({
+            nickname: String,
+            message: String
+        });
+
+        return mongoose.model('messages', messagesSchema);
+    }
+}

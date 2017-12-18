@@ -1,9 +1,8 @@
 import * as express from "express";
 import * as logger from "morgan";
 import * as bodyParser from "body-parser";
-import MessageRouter from "./routes/message.route";
-
-let jwt = require('jsonwebtoken');
+import * as jsonWebToken from 'jsonwebtoken';
+import MessageRouter from "./routes/message-route";
 
 class App {
 
@@ -22,20 +21,18 @@ class App {
     }
 
     private routes(): void {
-        let router = express.Router();
-
-        router.get('/', (req, res) => {
-            res.json({
-                message: 'Hello World!'
-            });
-        });
-
         let corsMiddleware = express.Router();
 
         corsMiddleware.use(function (req, res, next) {
             res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
             res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-            res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Methods,Authorization,Access-Control-Allow-Headers,Access-Control-Allow-Origin,X-Requested-With,content-type,X-Auth-Token');
+            res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Methods, ' +
+                'Authorization, ' +
+                'Access-Control-Allow-Headers, ' +
+                'Access-Control-Allow-Origin, ' +
+                'X-Requested-With, ' +
+                'content-type, ' +
+                'X-Auth-Token');
 
             if ('OPTIONS' == req.method) {
                 res.send(200);
@@ -50,7 +47,7 @@ class App {
         authMiddleware.use((req, res, next) => {
             let token: any = req.headers['authorization'];
             if (token) {
-                jwt.verify(token, 'ITATAKARU', function (err) {
+                jsonWebToken.verify(token, 'ITATAKARU', function (err) {
                     if (err) {
                         return res.status(401).send({
                             message: 'Invalid token.'
@@ -66,7 +63,6 @@ class App {
             }
         });
 
-        this.express.use('/', corsMiddleware, router);
         this.express.use('/api/messages', corsMiddleware, MessageRouter);
     }
 

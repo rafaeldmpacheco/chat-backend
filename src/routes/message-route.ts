@@ -1,22 +1,21 @@
 import {Router} from "express";
+import {MessageSchema} from '../schema/message-schema'
 
 let mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/chat');
-
-let messagesSchema = require('../schema/message');
 
 export class MessageRouter {
 
-    router: Router;
+    public router: Router;
 
     constructor() {
+        mongoose.connect('mongodb://localhost/chat');
         this.router = Router();
         this.init();
     }
 
     public init() {
         this.router.route('/').get(function (req, res) {
-            messagesSchema.find(function (err, messages) {
+            MessageSchema.getMessageModel().find(function (err, messages) {
                 if (err) {
                     res.send(err);
                 }
