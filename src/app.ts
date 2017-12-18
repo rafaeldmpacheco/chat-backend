@@ -66,6 +66,7 @@ class App {
         });
 
         this.express.use('/', corsMiddleware, router);
+        this.express.use('/api', router);
     }
 
 }

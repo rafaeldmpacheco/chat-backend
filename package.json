@@ -10,7 +10,7 @@
     "test": "mocha --reporter spec --compilers ts:ts-node/register 'test/**/*.test.ts'"
   },
   "keywords": [],
-  "author": "",
+  "author": "Rafael Pacheco <rafaeldmpacheco@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "@types/body-parser": "0.0.33",
@@ -40,5 +40,6 @@
     "moment": "^2.18.1",
     "morgan": "^1.7.0",
     "mysql": "^2.13.0"
-  }
+  },
+  "repository": "https://github.com/rafaeldmpacheco/chat-backend.git"
 }
