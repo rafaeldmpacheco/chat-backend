@@ -3,7 +3,7 @@ import {Router} from "express";
 let mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/chat');
 
-let messagesSchema = require('../model/message');
+let messagesSchema = require('../schema/message');
 
 export class MessageRouter {
 
