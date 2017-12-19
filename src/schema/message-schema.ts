@@ -2,14 +2,9 @@ import * as mongoose from 'mongoose';
 
 let Schema = mongoose.Schema;
 
-export class MessageSchema {
+let messagesSchema = new Schema({
+    nickname: String,
+    message: String
+});
 
-    public static getMessageModel(): any {
-        let messagesSchema = new Schema({
-            nickname: String,
-            message: String
-        });
-
-        return mongoose.model('messages', messagesSchema);
-    }
-}
+module.exports = mongoose.model('messages', messagesSchema);
