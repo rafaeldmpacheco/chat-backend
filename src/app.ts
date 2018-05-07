@@ -42,27 +42,6 @@ class App {
 
         });
 
-        let authMiddleware = express.Router();
-
-        authMiddleware.use((req, res, next) => {
-            let token: any = req.headers['authorization'];
-            if (token) {
-                jsonWebToken.verify(token, 'ITATAKARU', function (err) {
-                    if (err) {
-                        return res.status(401).send({
-                            message: 'Invalid token.'
-                        });
-                    } else {
-                        next();
-                    }
-                })
-            } else {
-                return res.status(403).send({
-                    message: 'No token provided.'
-                })
-            }
-        });
-
         this.express.use('/api/messages', corsMiddleware, MessageRouter);
     }
 
